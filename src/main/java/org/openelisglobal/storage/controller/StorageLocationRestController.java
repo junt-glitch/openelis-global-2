@@ -114,8 +114,7 @@ public class StorageLocationRestController extends BaseRestController {
             room.setDescription(form.getDescription());
             room.setActive(form.getActive() != null ? form.getActive() : true);
             room.setFhirUuid(UUID.randomUUID());
-            room.setSysUserId("1"); // Default system user for REST API (should come from security context in
-                                    // production)
+            room.setSysUserId(getSysUserId());
 
             StorageRoom createdRoom = storageLocationService.createRoom(room);
 
@@ -353,7 +352,7 @@ public class StorageLocationRestController extends BaseRestController {
             device.setPort(form.getPort());
             device.setCommunicationProtocol(form.getCommunicationProtocol());
             device.setFhirUuid(UUID.randomUUID());
-            device.setSysUserId("1"); // Default system user for REST API
+            device.setSysUserId(getSysUserId());
             device.setParentRoom(parentRoom);
 
             Integer id = storageLocationService.insert(device);
@@ -363,7 +362,7 @@ public class StorageLocationRestController extends BaseRestController {
                 try {
                     String sysUserId = getSysUserId(request);
                     if (sysUserId == null) {
-                        sysUserId = "1"; // Default system user for tests/REST API without session
+                        sysUserId = getSysUserId();
                     }
                     createFreezerMonitoringStub(device, sysUserId);
                 } catch (Exception e) {
@@ -637,7 +636,7 @@ public class StorageLocationRestController extends BaseRestController {
             shelf.setCapacityLimit(form.getCapacityLimit());
             shelf.setActive(form.getActive() != null ? form.getActive() : true);
             shelf.setFhirUuid(UUID.randomUUID());
-            shelf.setSysUserId("1"); // Default system user for REST API
+            shelf.setSysUserId(getSysUserId());
 
             Integer parentDeviceId = form.getParentDeviceId() != null ? Integer.parseInt(form.getParentDeviceId())
                     : null;
@@ -900,7 +899,7 @@ public class StorageLocationRestController extends BaseRestController {
             rack.setCode(form.getCode());
             rack.setActive(form.getActive() != null ? form.getActive() : true);
             rack.setFhirUuid(UUID.randomUUID());
-            rack.setSysUserId("1"); // Default system user for REST API
+            rack.setSysUserId(getSysUserId());
 
             Integer parentShelfId = form.getParentShelfId() != null ? Integer.parseInt(form.getParentShelfId()) : null;
             StorageShelf parentShelf = (StorageShelf) storageLocationService.get(parentShelfId, StorageShelf.class);
@@ -1171,7 +1170,7 @@ public class StorageLocationRestController extends BaseRestController {
             box.setCode(form.getCode());
             box.setActive(form.getActive() != null ? form.getActive() : true);
             box.setFhirUuid(UUID.randomUUID());
-            box.setSysUserId("1"); // Default system user for REST API
+            box.setSysUserId(getSysUserId());
 
             Integer parentRackId = form.getParentRackId() != null ? Integer.parseInt(form.getParentRackId()) : null;
             StorageRack parentRack = (StorageRack) storageLocationService.get(parentRackId, StorageRack.class);

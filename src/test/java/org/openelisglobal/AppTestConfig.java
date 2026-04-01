@@ -96,7 +96,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         "org.openelisglobal.alert", "org.openelisglobal.notification", "org.openelisglobal.reportdefinition",
         "org.openelisglobal.scheduler", "org.openelisglobal.sitebranding", "org.openelisglobal.resultvalidation",
         "org.openelisglobal.plugin", "org.openelisglobal.fhir.providers", "org.openelisglobal.common.dao",
-        "org.openelisglobal.report", "org.openelisglobal.eqa", "org.openelisglobal.qc" }, excludeFilters = {
+        "org.openelisglobal.report", "org.openelisglobal.eqa", "org.openelisglobal.qc",
+        "org.openelisglobal.security" }, excludeFilters = {
 
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.patient.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.organization.controller.*"),
@@ -108,6 +109,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.config.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.odoo.config.OdooConnectionConfig"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.scheduler.SchedulerConfig"),
+                @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.security.SecurityConfig"),
+                @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.security.DaemonUserConfig"),
+                @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.security.login.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.eqa.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.qc.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.eqa.scheduler.*"),
@@ -317,6 +321,23 @@ public class AppTestConfig implements WebMvcConfigurer {
     @Bean()
     public AnalyzerResultsController analyzerResultsController() {
         return mock(AnalyzerResultsController.class);
+    }
+
+    @Bean("daemonSystemUser")
+    @Profile("test")
+    public org.openelisglobal.systemuser.valueholder.SystemUser daemonSystemUser() {
+        org.openelisglobal.systemuser.valueholder.SystemUser user = new org.openelisglobal.systemuser.valueholder.SystemUser();
+        user.setId("1");
+        user.setLoginName("daemon");
+        user.setFirstName("System");
+        user.setLastName("Daemon");
+        return user;
+    }
+
+    @Bean("daemonSysUserId")
+    @Profile("test")
+    public String daemonSysUserId() {
+        return "1";
     }
 
     @Bean

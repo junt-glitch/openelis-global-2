@@ -10,5 +10,7 @@
   <!-- EQA Enabled configuration for Order Entry -->
   <include relativeToChangelogFile="true" file="002-eqa-enabled-config.xml"/>
 
+  <!-- Daemon system user for background/scheduled operations -->
+  <include relativeToChangelogFile="true" file="003-daemon-system-user.xml"/>
 
 </databaseChangeLog>
