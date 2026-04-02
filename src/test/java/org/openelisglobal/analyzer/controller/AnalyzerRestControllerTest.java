@@ -20,14 +20,16 @@ import org.openelisglobal.analyzer.service.AnalyzerQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MvcResult;
 
 /**
  * Integration tests for AnalyzerRestController Following TDD approach: Write
  * tests BEFORE implementation
- * 
+ *
  */
+@WithMockUser(username = "admin", roles = "GLOBAL_ADMIN")
 public class AnalyzerRestControllerTest extends BaseWebContextSensitiveTest {
 
     @Autowired
