@@ -1,6 +1,6 @@
 [submodule "plugins"]
 	path = plugins
-	url = https://github.com/DIGI-UW/openelisglobal-plugins.git
+	url = https://github.com/junt-glitch/openelisglobal-plugins.git
 [submodule "tools/Liquibase-Outdated"]
 	path = tools/Liquibase-Outdated
 	url = https://github.com/DIGI-UW/Liquibase-Outdated.git
@@ -18,8 +18,8 @@
 	url = https://github.com/DIGI-UW/dataexport.git
 [submodule "tools/openelis-analyzer-bridge"]
 	path = tools/openelis-analyzer-bridge
-	url = https://github.com/DIGI-UW/openelis-analyzer-bridge.git
+	url = https://github.com/junt-glitch/openelis-analyzer-bridge.git
 	branch = develop
 [submodule "tools/analyzer-mock-server"]
 	path = tools/analyzer-mock-server
-	url = https://github.com/DIGI-UW/analyzer-mock-server.git
+	url = https://github.com/junt-glitch/analyzer-mock-server.git
