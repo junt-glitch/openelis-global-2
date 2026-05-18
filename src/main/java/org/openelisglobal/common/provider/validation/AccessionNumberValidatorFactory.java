@@ -26,7 +26,7 @@ public class AccessionNumberValidatorFactory implements ConfigurationListener {
 
     public enum AccessionFormat {
         MAIN, GENERAL, SITEYEARNUM, PROGRAMNUM, YEARNUM_SIX, YEARNUM_DASH_SEVEN, YEARNUM_SEVEN, UNFORMATTED, ALT_YEAR,
-        ALPHANUM
+        ALPHANUM, PREFIX_DASH_YEARNUM
     }
 
     private AccessionFormat mainAccessionFormat;
@@ -71,6 +71,11 @@ public class AccessionNumberValidatorFactory implements ConfigurationListener {
                     mainGenerator = getYearNumValidator(7, null);
                     mainAccessionFormat = AccessionFormat.YEARNUM_SEVEN;
                 }
+            } else if (accessionFormat.equals(AccessionFormat.PREFIX_DASH_YEARNUM.name())) {
+                if (!mainGeneratorSet) {
+                    mainGenerator = getPrefixDashYearNumValidator();
+                    mainAccessionFormat = AccessionFormat.PREFIX_DASH_YEARNUM;
+                }
             }
 
             if (mainGenerator == null) {
@@ -107,6 +112,8 @@ public class AccessionNumberValidatorFactory implements ConfigurationListener {
             return getYearNumValidator(7, null);
         case ALT_YEAR:
             return getAltYearValidator();
+        case PREFIX_DASH_YEARNUM:
+            return getPrefixDashYearNumValidator();
         default:
             throw new LIMSInvalidConfigurationException(
                     "AccessionNumberValidatorFactory: Unable to find validator for " + accessionFormat);
@@ -136,6 +143,8 @@ public class AccessionNumberValidatorFactory implements ConfigurationListener {
             return getYearNumValidator(7, null);
         case ALT_YEAR:
             return getAltYearValidator();
+        case PREFIX_DASH_YEARNUM:
+            return getPrefixDashYearNumValidator();
         case GENERAL:
             throw new LIMSInvalidConfigurationException(
                     "AccessionNumberValidatorFactory: ALL_ACTIVE unable to be used as a generator ");
@@ -172,6 +181,10 @@ public class AccessionNumberValidatorFactory implements ConfigurationListener {
 
     private IAccessionNumberGenerator getProgramValidator() {
         return new ProgramAccessionValidator();
+    }
+
+    private IAccessionNumberGenerator getPrefixDashYearNumValidator() {
+        return new PrefixDashYearNumAccessionValidator();
     }
 
     @Override
