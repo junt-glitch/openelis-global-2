@@ -40,7 +40,7 @@ services:
             
     oe.openelis.org:
         container_name: openelisglobal-webapp 
-        image: itechuw/openelis-global-2:develop   
+        image: nexus/openelis-webapp:fork-local
         platform: linux/amd64 
         depends_on:
             - db.openelis.org
